@@ -4,10 +4,10 @@
 ![Home](web_img.png)
 
 ##  Check out the website: 
-	[Pokemon-wiki](https://pokemon-wiki.herokuapp.com/)
+[Pokemon-wiki](https://pokemon-wiki.herokuapp.com/)
 	
 	
 ## graphql-pokeapi:
-	[graphql-pokeapi](https://github.com/mazipan/graphql-pokeapi)
+[graphql-pokeapi](https://github.com/mazipan/graphql-pokeapi)
 
 Copyright © By Kenny
