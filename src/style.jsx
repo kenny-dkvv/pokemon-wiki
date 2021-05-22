@@ -123,7 +123,6 @@ input{
   outline: none;
 }
 
-
 `
 
 export const navbar = css`
