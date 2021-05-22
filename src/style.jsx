@@ -136,6 +136,7 @@ color: ${primaryColor};
 font-size: ${normalTextSize};
 
 @media(min-width:1024px){
+  padding: 15px 0;
   font-size: ${titleSize};
 }
 `
@@ -186,6 +187,18 @@ div{
 &:hover{
   opacity: 1;
 }
+
+@media(min-width:720px){
+  
+  img{
+    height:50px;
+  }
+  
+  div{
+    font-size: ${titleSize};
+  }
+}
+
 `
 export const flexContainer = css`
 display: flex;
