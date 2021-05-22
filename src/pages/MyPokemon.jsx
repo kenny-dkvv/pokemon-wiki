@@ -51,7 +51,7 @@ export const MyPokemon = () => {
           </div>
           <div css={flexContainer}>
             {pokemonListState.map((pokemon, __) => {
-              return <div css={PokemonFragment}>
+              return <div key={__} css={PokemonFragment}>
                 <div className="hover-div" onClick={() => {
                   if(window.confirm(`Are you sure you want to delete ${pokemon.name}?`))
                     deletePokemon(pokemon.name, __)

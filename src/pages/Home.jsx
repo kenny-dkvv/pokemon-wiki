@@ -1,7 +1,7 @@
 /* @jsxImportSource @emotion/react */
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { useEffect } from 'react';
 import { PokemonQuery } from '../components/PokemonQuery'
 import { flexContainer, page } from '../style'
@@ -51,7 +51,7 @@ export const Home = () => {
       </div>
     </div>
     <div css={flexContainer}>
-      {pokemons.map((pokemon, __) => (pokemon))}
+      {pokemons.map((pokemon, __) => (<Fragment key={__}>{pokemon}</Fragment>))}
     </div>
 
   </div>

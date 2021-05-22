@@ -40,7 +40,7 @@ export const PokemonQuery = (props) => {
   return <Fragment>
     {
       data.pokemons.results.map((pokemon, idx) => {
-        return <Link css={PokemonFragment} to={`/pokemon/${pokemon.name}`}>
+        return <Link key={props.gqlVariables.offset + idx + 1} css={PokemonFragment} to={`/pokemon/${pokemon.name}`}>
           <div className="hover-div">
             <img loading="lazy" alt="pokeball" src={pokeballImg} />
             <b>Catch</b>

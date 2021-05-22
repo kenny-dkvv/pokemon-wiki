@@ -1,5 +1,5 @@
 /* @jsxImportSource @emotion/react */
-import { detail, moveContainer, detailContainer, elementContainer, page, catchButtonPhone, catchButtonDesktop, alternateImgContainer, pokemonNameField} from "../style"
+import { detail, moveContainer, detailContainer, elementContainer, page, catchButtonPhone, catchButtonDesktop, alternateImgContainer, pokemonNameField } from "../style"
 import { gql, useQuery } from '@apollo/client';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle, faFeatherAlt, faImages, faInfoCircle, faListUl, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
@@ -7,7 +7,7 @@ import pokeball_closed from '../assets/pokeball_closed.png'
 import { Fragment, useEffect, useState } from "react";
 import { Alert } from "../components/Alert";
 import { css } from "@emotion/react";
-import {Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 const GET_POKEMON = gql`
@@ -52,9 +52,9 @@ export const Details = (props) => {
   const [canCatch, setCanCatch] = useState(true)
   const [catchedName, setCatchedName] = useState(pokemonName)
   const myPokemonList = JSON.parse(localStorage.getItem("myPokemon") || "[]");
-  
 
-  const closeAlert = () =>{
+
+  const closeAlert = () => {
     setAlert(null)
   }
   const catchedNameHandler = (event) => {
@@ -67,28 +67,28 @@ export const Details = (props) => {
     }
 
     const tempArray = myPokemonList.filter(pokemon => pokemon.name.toUpperCase() === name.toUpperCase())
-    if(tempArray.length > 0)return false
+    if (tempArray.length > 0) return false
     return true
   }
 
   const catchPokemon = () => {
     if (Math.random() < 0.5) {
-      setAlert(<Alert closeAlert = {closeAlert} background="#F84F31" message={`Fail to catch ${pokemonName[0].toUpperCase() + pokemonName.slice(1)}`} />)
+      setAlert(<Alert closeAlert={closeAlert} background="#F84F31" message={`Fail to catch ${pokemonName[0].toUpperCase() + pokemonName.slice(1)}`} />)
     }
     else {
-      setAlert(<Alert closeAlert = {closeAlert} background="#FFCC00" message={`Catch sucess, rename the ${pokemonName} first !`} />)
+      setAlert(<Alert closeAlert={closeAlert} background="#FFCC00" message={`Catch sucess, rename the ${pokemonName} first !`} />)
 
       setCanCatch(false)
     }
   }
 
-  const renameAndSave = () =>{
-    if(!checkNameAvailability(catchedName)){
-      setAlert(<Alert closeAlert = {closeAlert} background="#F84F31" message={`Name is not valid`} />)
+  const renameAndSave = () => {
+    if (!checkNameAvailability(catchedName)) {
+      setAlert(<Alert closeAlert={closeAlert} background="#F84F31" message={`Name is not valid`} />)
 
       return
     }
-    
+
     myPokemonList.push({
       id: data.pokemon.id,
       name: catchedName,
@@ -98,15 +98,15 @@ export const Details = (props) => {
 
     localStorage.setItem('myPokemon', JSON.stringify(myPokemonList))
 
-    setAlert(<Alert background="#23C552" closeAlert = {closeAlert} message={`${catchedName} has been catched`} />)
+    setAlert(<Alert background="#23C552" closeAlert={closeAlert} message={`${catchedName} has been catched`} />)
 
     setCatchedName(pokemonName)
     setCanCatch(true)
-      return
+    return
   }
 
-  useEffect(()=>{
-    if(checkNameAvailability(catchedName)){
+  useEffect(() => {
+    if (checkNameAvailability(catchedName)) {
     }
   }, [canCatch])
   //graphQL fetch
@@ -114,9 +114,9 @@ export const Details = (props) => {
     variables: { name: pokemonName },
   });
 
-  if (loading) return <div className="flex-center" style={{ width: "100%", height: "80vh"}}>
-  <img loading="lazy" css={css
-  `
+  if (loading) return <div className="flex-center" style={{ width: "100%", height: "80vh" }}>
+    <img loading="lazy" alt={"loading"} css={css
+      `
   width:50%;
   animation: spin 4s infinite;
   @media(min-width:720px){
@@ -126,7 +126,7 @@ export const Details = (props) => {
   `} src={pokeball_closed} />
   </div>
   if (error) {
-    return <div className={"flex-center-column"} style={{padding:"10px"}}>
+    return <div className={"flex-center-column"} style={{ padding: "10px" }}>
       <b>{`Error! ${error.message}`}</b>
       <Link to="/"><button>Catch another pokemon</button></Link>
     </div>
@@ -145,7 +145,7 @@ export const Details = (props) => {
           <div><b>{`${data.pokemon.name[0].toUpperCase() + data.pokemon.name.slice(1)}`}</b></div>
           <div css={elementContainer}>
             {data.pokemon.types.map((type, __) => (
-              <div>{type.type.name.toUpperCase()}</div>
+              <div key={__}>{type.type.name.toUpperCase()}</div>
             ))}
           </div>
           {canCatch ? <div css={catchButtonDesktop} onClick={catchPokemon}>
@@ -172,18 +172,20 @@ export const Details = (props) => {
               <span>Detail</span>
             </b>
             <table>
-              <tr>
-                <td>Dex No:</td>
-                <td>{`#${("" + data.pokemon.id).padStart(3, "0")}`}</td>
-              </tr>
-              <tr>
-                <td>Weight:</td>
-                <td>{`${data.pokemon.weight} lbs`}</td>
-              </tr>
-              <tr>
-                <td>Height:</td>
-                <td>{`${data.pokemon.height} inch`}</td>
-              </tr>
+              <tbody>
+                <tr>
+                  <td>Dex No:</td>
+                  <td>{`#${("" + data.pokemon.id).padStart(3, "0")}`}</td>
+                </tr>
+                <tr>
+                  <td>Weight:</td>
+                  <td>{`${data.pokemon.weight} lbs`}</td>
+                </tr>
+                <tr>
+                  <td>Height:</td>
+                  <td>{`${data.pokemon.height} inch`}</td>
+                </tr>
+              </tbody>
             </table>
           </div>
         </div>
@@ -193,7 +195,7 @@ export const Details = (props) => {
             <span>Moves</span>
           </b>
           <ul className="moveListContainer">
-            {data.pokemon.moves.map((move, __) => (<li>
+            {data.pokemon.moves.map((move, __) => (<li key={__}>
               {move.move.name}
             </li>))}
           </ul>
@@ -212,8 +214,8 @@ export const Details = (props) => {
 
               const tempKeyName = key.replaceAll("_", " ").replace("front", "").slice(1)
 
-              return <div>
-                <img loading="lazy" src={data.pokemon.sprites[key]} alt={key}/>
+              return <div key={__}>
+                <img loading="lazy" src={data.pokemon.sprites[key]} alt={key} />
                 <div>{tempKeyName[0].toUpperCase() + tempKeyName.slice(1)}</div>
               </div>
             })
