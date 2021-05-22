@@ -5,13 +5,14 @@ import { Fragment, useState } from 'react';
 import { useEffect } from 'react';
 import { PokemonQuery } from '../components/PokemonQuery'
 import { flexContainer, page } from '../style'
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
-export const Home = () => {
+export const Home = (props) => {
 
   document.title = 'Pokemon'
   const [pokemons, setPokemons] = useState([])
   const [nameQuery, setNameQuery] = useState("")
+  const [redirectByQuery, setRedirectByQuery] = useState(false)
 
   const nameQueryHandler = (event) => {
     setNameQuery(event.target.value)
@@ -33,21 +34,44 @@ export const Home = () => {
     }
   }
 
+  const handleInputEnter = event => {
+    if (event.key === 'Enter') {
+      event.preventDefault()
+      setRedirectByQuery(true)
+    }
+  }
+
+  const findPokemon = () => {
+    if (nameQuery) {
+      props.history.push(`/pokemon/${nameQuery.toLowerCase()}`)
+    }
+  }
+
   useEffect(() => {
+
+    //infinite scrolling
     window.addEventListener("scroll", handleScroll);
     const param = { ...gqlVariables }
     pokemons.push(<PokemonQuery gqlVariables={param} />)
     setPokemons([...pokemons])
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    //enter di search
+    var input = document.getElementsByTagName("input")[0]
+    input.addEventListener("keyup", handleInputEnter)
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+      input.removeEventListener("keyup", handleInputEnter)
+    }
   }, [])
 
   return <div css={page}>
+    {redirectByQuery ? <Redirect to={`/pokemon/${nameQuery.toLowerCase()}`} /> : null}
     <div className="flex-center-column">
       <b>Find By Name</b>
       <div>
-        <input placeholder={"Ditto"} onChange={nameQueryHandler} />
-        <Link to={`/pokemon/${nameQuery.toLowerCase()}`}><FontAwesomeIcon icon={faSearch} style={{cursor:"Pointer"}} /></Link>
+        <input value={nameQuery} placeholder={"Ditto"} onChange={nameQueryHandler} />
+        <FontAwesomeIcon icon={faSearch} style={{ cursor: "Pointer" }} onClick={findPokemon} />
       </div>
     </div>
     <div css={flexContainer}>

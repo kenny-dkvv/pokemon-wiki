@@ -130,10 +130,11 @@ export const navbar = css`
 display: flex;
 justify-content: space-evenly;
 align-items: center;
-padding: 15px 0;
+padding: 5px 0;
 background-color: ${secondaryColor};
 color: ${primaryColor};
 font-size: ${normalTextSize};
+
 @media(min-width:1024px){
   font-size: ${titleSize};
 }
@@ -166,15 +167,21 @@ display:flex;
 flex-direction: column;
 justify-column: center;
 align-items: center;
-font-size: 1.1em;
+font-size: ${titleSize};
 margin: 0 20px;
 cursor: pointer;
 color: ${primaryColor};
 opacity: 0.7;
 transition: 0.2s all;
+
 img{
-  height:50px;
+  height:30px;
 }
+
+div{
+  font-size: ${normalTextSize};
+}
+
 
 &:hover{
   opacity: 1;

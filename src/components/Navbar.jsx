@@ -13,7 +13,7 @@ export const Navbar = () => {
     </Link>
     <Link css = {navbarLink} to="/my-pokemon"  >
       <img src={starterPokemon} alt={"my pokemon"}/>
-      My Pokemon
+      <div>My Pokemon</div>
     </Link>
   </div>
 }

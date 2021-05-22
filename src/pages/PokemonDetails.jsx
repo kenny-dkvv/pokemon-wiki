@@ -71,6 +71,13 @@ export const Details = (props) => {
     return true
   }
 
+  const handleInputEnter = event => {
+    if (event.key === 'Enter') {
+      event.preventDefault()
+      renameAndSave()
+    }
+  }
+
   const catchPokemon = () => {
     if (Math.random() < 0.5) {
       setAlert(<Alert closeAlert={closeAlert} background="#F84F31" message={`Fail to catch ${pokemonName[0].toUpperCase() + pokemonName.slice(1)}`} />)
@@ -83,9 +90,9 @@ export const Details = (props) => {
   }
 
   const renameAndSave = () => {
+    console.log(catchedName)
     if (!checkNameAvailability(catchedName)) {
       setAlert(<Alert closeAlert={closeAlert} background="#F84F31" message={`Name is not valid`} />)
-
       return
     }
 
@@ -106,9 +113,17 @@ export const Details = (props) => {
   }
 
   useEffect(() => {
-    if (checkNameAvailability(catchedName)) {
+    var input = document.getElementsByTagName('input')[0]
+    if(input){
+      input.addEventListener("keyup", handleInputEnter)
     }
-  }, [canCatch])
+    
+    return () => {
+      if(input)
+      input.removeEventListener("keyup", handleInputEnter)
+    }
+  }, [catchedName])
+
   //graphQL fetch
   const { loading, error, data } = useQuery(GET_POKEMON, {
     variables: { name: pokemonName },
@@ -131,6 +146,8 @@ export const Details = (props) => {
       <Link to="/"><button>Catch another pokemon</button></Link>
     </div>
   }
+
+  
   return <Fragment>
     {alert}
     <div css={page}>
