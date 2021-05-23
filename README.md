@@ -1,8 +1,19 @@
 # Getting Started with Create React App
 
+<<<<<<< HEAD
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
+=======
+![Home](web_img.png)
+
+##  Check out the website: 
+[Pokemon-wiki](https://pokemon-wiki.herokuapp.com/)
+	
+	
+## graphql-pokeapi:
+[graphql-pokeapi](https://github.com/mazipan/graphql-pokeapi)
+>>>>>>> 903bcd29f91f9261bdf19324eac150c2baeb0404
 
 In the project directory, you can run:
 
