@@ -24,8 +24,12 @@ export const Home = (props) => {
   };
 
   const handleScroll = () => {
-    const currentScrollY = window.innerHeight + window.scrollY
-    const halfPageY = document.body.offsetHeight
+    
+    const container = document.getElementById("pokemon-container")
+
+
+    const currentScrollY = container.scrollTop + container.clientHeight
+    const halfPageY = container.scrollHeight
     if (currentScrollY >= halfPageY) {
       gqlVariables.offset += 20
       const param = { ...gqlVariables }
@@ -50,7 +54,9 @@ export const Home = (props) => {
   useEffect(() => {
 
     //infinite scrolling
-    window.addEventListener("scroll", handleScroll);
+    const container = document.getElementById("pokemon-container")
+
+    container.addEventListener("scroll", handleScroll);
     const param = { ...gqlVariables }
     pokemons.push(<PokemonQuery gqlVariables={param} />)
     setPokemons([...pokemons])
@@ -60,7 +66,7 @@ export const Home = (props) => {
     input.addEventListener("keyup", handleInputEnter)
 
     return () => {
-      window.removeEventListener("scroll", handleScroll)
+      container.removeEventListener("scroll", handleScroll)
       input.removeEventListener("keyup", handleInputEnter)
     }
   }, [])
@@ -74,7 +80,7 @@ export const Home = (props) => {
         <FontAwesomeIcon icon={faSearch} style={{ cursor: "Pointer" }} onClick={findPokemon} />
       </div>
     </div>
-    <div css={flexContainer}>
+    <div id={"pokemon-container"} css={flexContainer}>
       {pokemons.map((pokemon, __) => (<Fragment key={__}>{pokemon}</Fragment>))}
     </div>
 

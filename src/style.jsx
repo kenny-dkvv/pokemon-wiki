@@ -201,22 +201,53 @@ div{
 `
 export const flexContainer = css`
 display: flex;
-justify-content: center;
 align-item: center;
 flex-direction: column;
+overflow: auto;
+height: 100vh;
+width:100%;
+margin: 10px 0;
+
+
 @media(min-width: 1024px){
+  height: 70vh;
   flex-direction: row;
+  padding: 0;
+  justify-content: center;
   flex-wrap: wrap;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 10px;
+    border: 2px solid ${tertiaryColor}; 
+  }
+   
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background-color: ${tertiaryColor};
+    border-radius: 10px;
+    transition: 0.3s all;
+  
+    &:hover{
+      background: ${secondaryColor};
+    }
+  }
 }
 `
 
 export const PokemonFragment = css`
 position: relative;
 border-radius: 10px;
-border: 2px solid ${secondaryColor};
-margin: 20px 0;
+margin: 20px;
 font-size: 1.2em;
 display:flex;
+box-shadow: 2px 2px 5px 1px ${tertiaryColor};
+height: fit-content;
 flex-direction: column;
 justify-content:center;
 align-items: center;
@@ -260,6 +291,7 @@ img{
 &:hover{
   .hover-div{
     opacity: 0.8;
+    border: 2px solid ${secondaryColor};
   }
 }
 
@@ -271,7 +303,7 @@ img{
 
 @media(min-width:1024px){
   margin: 20px;
-  width: 20%;
+  width: 25%;
 }
 `
 export const detail = css`
@@ -456,7 +488,7 @@ padding: 5px;
 
 img{
   border-radius: 10px;
-  border: 2px solid ${secondaryColor};
+  box-shadow: 2px 2px 6px 2px ${tertiaryColor};
   width: 100%;
 }
 
