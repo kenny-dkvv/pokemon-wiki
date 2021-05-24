@@ -5,11 +5,11 @@ import { Fragment, useState } from 'react';
 import { useEffect } from 'react';
 import { PokemonQuery } from '../components/PokemonQuery'
 import { flexContainer, page } from '../style'
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 export const Home = (props) => {
 
-  document.title = 'Pokemon'
+  document.title = 'Pokemon-wiki'
   const [pokemons, setPokemons] = useState([])
   const [nameQuery, setNameQuery] = useState("")
   const [redirectByQuery, setRedirectByQuery] = useState(false)
@@ -19,7 +19,6 @@ export const Home = (props) => {
   }
 
   const gqlVariables = {
-    limit: undefined,
     offset: 0,
   };
 

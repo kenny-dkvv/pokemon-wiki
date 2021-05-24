@@ -46,7 +46,7 @@ query pokemon($name: String!) {
 export const Details = (props) => {
   const pokemonName = props.match.params.pokemon_name
 
-  document.title = `Pokemon | ${pokemonName[0].toUpperCase() + pokemonName.slice(1)}`;
+  document.title = `Pokemon-wiki | ${pokemonName[0].toUpperCase() + pokemonName.slice(1)}`;
 
   const [alert, setAlert] = useState()
   const [canCatch, setCanCatch] = useState(true)
@@ -90,7 +90,6 @@ export const Details = (props) => {
   }
 
   const renameAndSave = () => {
-    console.log(catchedName)
     if (!checkNameAvailability(catchedName)) {
       setAlert(<Alert closeAlert={closeAlert} background="#F84F31" message={`Name is not valid`} />)
       return
