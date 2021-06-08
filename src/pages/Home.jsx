@@ -25,7 +25,6 @@ export const Home = (props) => {
     setNameQuery(event.target.value)
   }
   
-  
 
   const handleScroll = () => {
     

@@ -12,6 +12,7 @@ export const MyPokemon = () => {
   const [pokemonListState, setPokemonListState] = useState(myPokemonList)
   const [alert, setAlert] = useState()
   const [nameQuery, setNameQuery] = useState("")
+  document.title = 'Pokemon-wiki | My Pokemon'
 
   const deletePokemon = (pokemonName, idx) => {
     myPokemonList.splice(idx, 1)
