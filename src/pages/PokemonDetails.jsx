@@ -4,7 +4,7 @@ import { gql, useQuery } from '@apollo/client';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle, faFeatherAlt, faImages, faInfoCircle, faListUl, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import pokeball_closed from '../assets/pokeball_closed.png'
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 import { Alert } from "../components/Alert";
 import { css } from "@emotion/react";
 import { Link } from 'react-router-dom';
@@ -112,18 +112,6 @@ export const Details = (props) => {
     return
   }
 
-  useEffect(() => {
-    var input = document.getElementsByTagName('input')[0]
-    if(input){
-      input.addEventListener("keyup", handleInputEnter)
-    }
-    
-    return () => {
-      if(input)
-      input.removeEventListener("keyup", handleInputEnter)
-    }
-  }, [catchedName])
-
   //graphQL fetch
   const { loading, error, data } = useQuery(GET_POKEMON, {
     variables: { name: pokemonName },
@@ -172,7 +160,7 @@ export const Details = (props) => {
             <div css={pokemonNameField}>
               <div>Input pokemon name<br /> (cannot duplicate)</div>
               <div className="flex-center">
-                <input className={checkNameAvailability(catchedName) ? "input-right" : "input-wrong"} value={catchedName} onChange={catchedNameHandler} />
+                <input onKeyDown={handleInputEnter} className={checkNameAvailability(catchedName) ? "input-right" : "input-wrong"} value={catchedName} onChange={catchedNameHandler} />
                 <FontAwesomeIcon
                   style={{ color: checkNameAvailability(catchedName) ? "#0eaf18" : "rgb(255, 0, 0)" }}
 

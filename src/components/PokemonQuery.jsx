@@ -26,17 +26,19 @@ const GET_POKEMONS = gql`
 
 export const PokemonQuery = (props) => {
   //graphQL fetch
-  const { loading, error, data } = useQuery(GET_POKEMONS, {
+  const { loading, error, data} = useQuery(GET_POKEMONS, {
     variables: props.gqlVariables,
   });
 
   if (loading) return <div style={{ width: "100%" }}>
     <img loading="lazy" alt={"pokeball"} css={loadingPokeball} src={pokeballImg} />
   </div>
+
   if (error) return `Error! ${error.message}`
 
   const myPokemonList = JSON.parse(localStorage.getItem("myPokemon") || "[]");
 
+  
   return <Fragment>
     {
       data.pokemons.results.map((pokemon, idx) => {

@@ -2,7 +2,7 @@
 import { flexContainer, page, PokemonFragment } from "../style";
 import pokeballImg from '../assets/pokeball_open.png'
 import trainerImg from '../assets/ash_trainer.png'
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 import { Alert } from "../components/Alert";
 
 
@@ -25,20 +25,19 @@ export const MyPokemon = () => {
     setAlert(null)
   }
 
-  const nameQueryHandler = (event) =>{
-    setNameQuery(event.target.value)
-  }
 
-  useEffect(()=>{
-    if(nameQuery.length){
-      setPokemonListState(
-        myPokemonList.filter(
-          pokemon => 
-          pokemon.name.toLowerCase().includes(nameQuery.toLowerCase()) 
-          || pokemon.originalName.toLowerCase().includes(nameQuery.toLowerCase())))
+  const typeSearchName = ({target:{value}}) =>{
+    if(value.length){
+      const temp = myPokemonList.filter(
+        pokemon => 
+        pokemon.name.toLowerCase().includes(value.toLowerCase()) 
+        || pokemon.originalName.toLowerCase().includes(value.toLowerCase()))
+
+      setPokemonListState(temp)
     }
     else setPokemonListState(myPokemonList)
-  },[nameQuery])
+    setNameQuery(value)
+  }
 
   return <Fragment>
     {alert}
@@ -47,7 +46,7 @@ export const MyPokemon = () => {
         <Fragment>
           <div className="flex-center-column">
             <b>Find By Name</b>
-            <input placeholder={"Ditto"} onChange={nameQueryHandler} />
+            <input value={nameQuery} placeholder={"Ditto"} onChange={typeSearchName} />
           </div>
           <div css={flexContainer}>
             {pokemonListState.map((pokemon, __) => {
