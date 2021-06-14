@@ -11,7 +11,7 @@ const titleSize = "25px";
 const normalTextSize = "20px";
 const smallTextSize = "15px";
 
-export const global = css`
+export const all = css`
 @font-face {
   font-family: 'Titillium';
   src: url(${titillium});

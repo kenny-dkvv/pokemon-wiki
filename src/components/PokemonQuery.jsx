@@ -1,28 +1,13 @@
 /* @jsxImportSource @emotion/react */
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import pokeballImg from '../assets/pokeball_closed.png'
 import { Fragment } from 'react';
 import { loadingPokeball, PokemonFragment } from '../style';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTabletAlt } from '@fortawesome/free-solid-svg-icons';
+import { GET_POKEMONS } from '../gql_queries';
 
-const GET_POKEMONS = gql`
-  query pokemons($limit: Int, $offset: Int) {
-    pokemons(limit: $limit, offset: $offset) {
-      count
-      next
-      previous
-      status
-      message
-      results {
-        url
-        name
-        image
-      }
-    }
-  }
-`
 
 export const PokemonQuery = (props) => {
   //graphQL fetch
@@ -37,7 +22,6 @@ export const PokemonQuery = (props) => {
   if (error) return `Error! ${error.message}`
 
   const myPokemonList = JSON.parse(localStorage.getItem("myPokemon") || "[]");
-
   
   return <Fragment>
     {
@@ -50,7 +34,7 @@ export const PokemonQuery = (props) => {
 
           <img loading="lazy" alt={pokemon.name} src={pokemon.image} />
           <div>{`#${("" + (props.gqlVariables.offset + idx + 1)).padStart(3, "0")}`}</div>
-          <b>{`${pokemon.name[0].toUpperCase() + pokemon.name.slice(1)}`}</b>
+          <div data-testid={`pokemon-${pokemon.name}`}>{`${pokemon.name[0].toUpperCase() + pokemon.name.slice(1)}`}</div>
 
           <div className="owned">
             <FontAwesomeIcon icon={faTabletAlt} />

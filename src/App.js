@@ -1,14 +1,14 @@
 import './App.css';
 import Routes from './Routes';
 import {Global } from '@emotion/react';
-import { global } from './style';
+import { all } from './style';
 
 
 
 function App() {
   return (
     <div className="App">
-      <Global styles={global} />
+      <Global styles={all} />
       <Routes />
     </div>
   );

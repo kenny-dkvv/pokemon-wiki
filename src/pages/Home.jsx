@@ -56,13 +56,13 @@ export const Home = (props) => {
   return <div css={page}>
     {redirectByQuery ? <Redirect to={`/pokemon/${nameQuery.toLowerCase()}`} /> : null}
     <div className="flex-center-column">
-      <b>Find By Name</b>
+      <b data-testid = "find-by-name-lbl" >Find By Name</b>
       <div>
         <input onKeyUp={handleInputEnter} value={nameQuery} placeholder={"Ditto"} onChange={nameQueryHandler} />
         <FontAwesomeIcon icon={faSearch} style={{ cursor: "Pointer" }} onClick={findPokemon} />
       </div>
     </div>
-    <div ref={refContainer} onScroll={handleScroll} css={flexContainer}>
+    <div ref={refContainer} id="pokemon-container" onScroll={handleScroll} css={flexContainer}>
       {pokemons.map((pokemon, __) => (<Fragment key={__}>{pokemon}</Fragment>))}
     </div>
 

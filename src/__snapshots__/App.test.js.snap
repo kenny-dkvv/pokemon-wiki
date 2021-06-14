@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`loaded pokemon 1`] = `
+<div
+  style={
+    Object {
+      "width": "100%",
+    }
+  }
+>
+  <div
+    data-testid="pokemon-name"
+  >
+    X
+  </div>
+  <img
+    alt="pokeball"
+    className="css-1khj7ka-PokemonQuery"
+    loading="lazy"
+    src="pokeball_closed.png"
+  />
+</div>
+`;
