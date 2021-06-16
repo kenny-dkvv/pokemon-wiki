@@ -8,22 +8,24 @@ import { Redirect } from 'react-router-dom';
 
 export const Home = (props) => {
 
-  const gqlVariables = {
-    offset: 0,
-    limit: 20
-  };
-
   document.title = 'Pokemon'
   
+  const [gqlVariables, setGqlVariables] = useState({
+    offset: 0,
+    limit: 20
+  })
+
   const [nameQuery, setNameQuery] = useState("")
   const [redirectByQuery, setRedirectByQuery] = useState(false)
   const [pokemons, setPokemons] = useState([<PokemonQuery gqlVariables={gqlVariables} />])
   const refContainer = useRef(null);
+  
 
 
   const nameQueryHandler = (event) => {
     setNameQuery(event.target.value)
   }
+  
   
 
   const handleScroll = () => {
@@ -34,8 +36,9 @@ export const Home = (props) => {
     const halfPageY = container.scrollHeight
     if (currentScrollY >= halfPageY) {
       gqlVariables.offset += 20
-      const param = { ...gqlVariables }
-      pokemons.push(<PokemonQuery gqlVariables={param} />)
+      
+      pokemons.push(<PokemonQuery gqlVariables={gqlVariables} />)
+      setGqlVariables({ ...gqlVariables })
       setPokemons([...pokemons])
     }
   }
@@ -56,13 +59,13 @@ export const Home = (props) => {
   return <div css={page}>
     {redirectByQuery ? <Redirect to={`/pokemon/${nameQuery.toLowerCase()}`} /> : null}
     <div className="flex-center-column">
-      <b data-testid = "find-by-name-lbl" >Find By Name</b>
+      <b>Find By Name</b>
       <div>
         <input onKeyUp={handleInputEnter} value={nameQuery} placeholder={"Ditto"} onChange={nameQueryHandler} />
         <FontAwesomeIcon icon={faSearch} style={{ cursor: "Pointer" }} onClick={findPokemon} />
       </div>
     </div>
-    <div ref={refContainer} id="pokemon-container" onScroll={handleScroll} css={flexContainer}>
+    <div ref={refContainer} onScroll={handleScroll} css={flexContainer}>
       {pokemons.map((pokemon, __) => (<Fragment key={__}>{pokemon}</Fragment>))}
     </div>
 
